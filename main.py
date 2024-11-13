@@ -15,6 +15,7 @@ from src.config.database import Base, engine
 
 from src.routers.country import country_router
 from src.routers.brand import Brand_router
+from src.routers.role import role_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -28,10 +29,11 @@ tags_metadata = [
         "description": "brand handling endpoints",
     },
 ]
-app = FastAPI(openapi_tags=tags_metadata)
+app = FastAPI(openapi_tags=tags_metadata, root_path=f"/api/v1")
 
-app.include_router(prefix="/api/v1/country", router=country_router)
-app.include_router(prefix="/api/v1/brand", router=Brand_router)
+app.include_router(prefix="brand", router=Brand_router)
+app.include_router(prefix="/country", router=country_router)
+app.include_router(prefix="/role", router=role_router)
 
 app.title = "AUTOLUX"
 app.summary = "API with FastAPI and Python"
