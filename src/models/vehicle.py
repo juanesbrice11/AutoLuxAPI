@@ -13,6 +13,7 @@ class Vehicle(Base):
     hp = Column(Integer, nullable=False)
     image = Column(String(length=100), nullable=False)
     acceleration = Column(Integer, nullable=False)
+    
     Rbrand = relationship("Brand", back_populates="Rvehicle")
     Rarticle = relationship("Article", back_populates="Rvehicle")
     Rcomment = relationship("Comment", back_populates="Rvehicle")

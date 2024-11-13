@@ -16,6 +16,8 @@ from src.config.database import Base, engine
 from src.routers.country import country_router
 from src.routers.brand import Brand_router
 from src.routers.role import role_router
+from src.routers.vehicle import vehicle_router
+from src.routers.article import Article_router
 from src.routers.auth import auth_router
 from src.routers.user import user_router
 
@@ -31,6 +33,14 @@ tags_metadata = [
         "description": "brand handling endpoints",
     },
     {
+        "name": "Article",
+        "description": "article handling endpoints",
+    },
+    {
+        "name": "Role",
+        "description": "role handling endpoints",
+    },
+    {
         "name": "Auth",
         "description": "auth user handling endpoints",
     },
@@ -39,11 +49,7 @@ tags_metadata = [
         "description": "user handling endpoints",
     },
     {
-        "name": "Role",
-        "description": "role handling endpoints",
-    },
-    {
-        "name": "web",
+        "name": "Web",
         "description": "web handling endpoints",
     }
 ]
@@ -52,6 +58,8 @@ app = FastAPI(openapi_tags=tags_metadata, root_path=f"/api/v1")
 app.include_router(prefix="/brand", router=Brand_router)
 app.include_router(prefix="/country", router=country_router)
 app.include_router(prefix="/role", router=role_router)
+app.include_router(prefix="/vehicle", router=vehicle_router)
+app.include_router(prefix="/article", router=Article_router)
 app.include_router(prefix="/auth", router=auth_router)
 app.include_router(prefix="/user", router=user_router)
 
