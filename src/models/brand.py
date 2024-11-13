@@ -11,6 +11,6 @@ class Brand(Base):
     image = Column(String(length=250), nullable=False)
     country_id = Column(Integer, ForeignKey('country.id'))
     Rcountry = relationship("Country", back_populates="Rbrands")
-    Rvehicles = relationship("Vehicle", back_populates="Rbrand")
+    Rvehicle = relationship("Vehicle", back_populates="Rbrand")
 
 

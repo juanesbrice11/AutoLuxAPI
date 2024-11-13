@@ -12,12 +12,20 @@ from src.models.article import Article
 from src.models.comment import Comment
 from src.config.database import Base, engine
 
+
+from src.routers.country import country_router
+
 Base.metadata.create_all(bind=engine)
 
 tags_metadata = [
-    
+    {
+        "name": "country",
+        "description": "country handling endpoints",
+    },
 ]
 app = FastAPI(openapi_tags=tags_metadata)
+
+app.include_router(prefix="/api/v1/country", router=country_router)
 
 app.title = "AUTOLUX"
 app.summary = "API with FastAPI and Python"
