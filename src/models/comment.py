@@ -6,7 +6,7 @@ class Comment(Base):
     __tablename__ = "comment"
     id = Column(Integer, primary_key=True, index=True)
     date = Column(String(50), nullable=False)
-    user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
+    user_id = Column(String(64), ForeignKey("user.id"), nullable=False)
     content = Column(String(50), nullable=False)
     vehicle_id = Column(Integer, ForeignKey("vehicle.id"), nullable=False)
     likes = Column(Integer, default=0)
