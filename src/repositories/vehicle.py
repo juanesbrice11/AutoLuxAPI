@@ -32,7 +32,14 @@ class VehicleRepository():
         element = self.db.query(Vehicles).filter(Vehicles.id == id).first()
         if element:
             element.name = vehicle.name
-            element.description = vehicle.description
+            element.marca_id = vehicle.marca_id
+            element.top_speed = vehicle.top_speed
+            element.hp = vehicle.hp
+            element.acceletarion = vehicle.acceleration
+            element.modelo = vehicle.modelo
+            element.engine = vehicle.engine
+            element.image = vehicle.image
+
             self.db.commit()
             self.db.refresh(element)
         return element
