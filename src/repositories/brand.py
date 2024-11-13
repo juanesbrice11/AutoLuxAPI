@@ -28,6 +28,9 @@ class BrandRepository():
             raise HTTPException(status_code=404, detail="Item not found")
         
         UpdateBrand.name = brand.name
+        UpdateBrand.country_id = brand.country_id
+        UpdateBrand.year_of_establishment = brand.year_of_establishment
+        UpdateBrand.image = brand.image
 
         self.db.commit()
         self.db.refresh(UpdateBrand)

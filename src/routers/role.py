@@ -10,7 +10,7 @@ from fastapi.encoders import jsonable_encoder
 role_router = APIRouter()
 
 @role_router.get('/',
-    tags=['role'],
+    tags=['Role'],
     response_model=List[Role],
     description="Returns all Roles")
 def get_all_roles() -> List[Role]:
@@ -19,7 +19,7 @@ def get_all_roles() -> List[Role]:
     return JSONResponse(content=jsonable_encoder(result), status_code=200)
 
 @role_router.get('/{id}',
-    tags=['role'],
+    tags=['Role'],
     response_model=Role,
     description="Returns data of one specific role")
 def get_role_by_id(id: int = Path(ge=0, le=5000)) -> Role:
@@ -34,7 +34,7 @@ def get_role_by_id(id: int = Path(ge=0, le=5000)) -> Role:
     return JSONResponse(content=jsonable_encoder(element), status_code=200)
 
 @role_router.post('/',
-    tags=['role'],
+    tags=['Role'],
     response_model=dict,
     description="Creates a new role")
 def create_role(role: Role) -> dict:
@@ -46,7 +46,7 @@ def create_role(role: Role) -> dict:
     }, status_code=201)
 
 @role_router.put('/{id}',
-    tags=['role'],
+    tags=['Role'],
     response_model=dict,
     description="Update an existing role")
 def update_role(id: int = Path(ge=1), role: Role = Body()) -> dict:
@@ -61,7 +61,7 @@ def update_role(id: int = Path(ge=1), role: Role = Body()) -> dict:
     )
 
 @role_router.delete('/{id}',
-    tags=['role'],
+    tags=['Role'],
     response_model=dict,
     description="Removes a specific role")
 def remove_role(id: int = Path(ge=1)) -> dict:
