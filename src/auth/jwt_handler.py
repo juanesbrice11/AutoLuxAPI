@@ -1,6 +1,7 @@
 import bcrypt
 import jwt
 from fastapi import HTTPException
+from src.config.database import SessionLocal
 from datetime import (
  datetime,
  timezone,
@@ -57,18 +58,21 @@ class JWTHandler:
         payload = {
             "exp": datetime.now(tz=timezone.utc) + timedelta(hours=10),
             "iat": datetime.now(tz=timezone.utc),
-            "scope": "refresh_token",
             "sub": user.email,
+            "scope": "refresh_token",
+            "user.name": user.name,
+            "user.id": user.id,
         }
         return jwt.encode(payload, self.secret, algorithm=self.algorithm)
 
     def refresh_token(self, refresh_token):
         try:
+            db = SessionLocal()
             payload = jwt.decode(
             refresh_token, self.secret, algorithms=[self.algorithm]
             )
             if payload and payload["scope"] == "refresh_token":
-                user = UserRepository.get_user(payload["sub"])
+                user = UserRepository(db).get_user(email=payload['sub'])
                 new_token = self.encode_token(user)
                 return new_token
             raise HTTPException(status_code=401, detail="Invalid scope for token")
