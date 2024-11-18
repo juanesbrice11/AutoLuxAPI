@@ -1,18 +1,16 @@
 from fastapi import APIRouter
 from src.schemas.country import Country
-from fastapi import FastAPI, Body, Query, Path
-from fastapi.responses import HTMLResponse, JSONResponse
-from typing import Annotated, Any, Optional, List
+from fastapi import Body, Path
+from fastapi.responses import JSONResponse
+from typing import List
 from src.config.database import SessionLocal
-from src.models.country import Country as CountryModel
-from fastapi.encoders import jsonable_encoder
 from src.repositories.country import CountryRepository
-from fastapi.security import HTTPAuthorizationCredentials
-from fastapi import APIRouter, Body, Depends, Query, Path, Security, status
+from fastapi.encoders import jsonable_encoder
+
 country_router = APIRouter()
 
-@country_router.options('/{id}')
-async def options_country(id: int):
+@country_router.options('/')
+async def options_country():
     response = JSONResponse(content={})
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS, PUT, DELETE"
@@ -27,7 +25,7 @@ async def options_country(id: int):
 def get_all_countries() -> List[Country]:
     db = SessionLocal()
     result = CountryRepository(db).get_all_countries()
-    return JSONResponse(content=jsonable_encoder(result),status_code=200)
+    return JSONResponse(content=jsonable_encoder(result), status_code=200)
 
 @country_router.get('/{id}',
     tags=['country'],
@@ -42,7 +40,7 @@ def get_country_by_id(id: int = Path(ge=0, le=5000),) -> Country:
             "data": None
         }, status_code=400)
     
-    return JSONResponse(content=jsonable_encoder(element),status_code=200)
+    return JSONResponse(content=jsonable_encoder(element), status_code=200)
 
 @country_router.post('/',
     tags=['country'],
@@ -56,25 +54,25 @@ def create_country(country: Country,) -> dict:
         "data": jsonable_encoder(new_country)
     }, status_code=201)
 
-@country_router.put('{id}', tags=['country'],
+@country_router.put('/{id}', tags=['country'],
     response_model=dict,
-    description="Update a new country")
+    description="Update a country")
 def update_country(id:int = Path(ge=1), country: Country = Body()) -> dict:
-    db= SessionLocal()
-    update_country = CountryRepository(db).update_country(id,country)
+    db = SessionLocal()
+    updated_country = CountryRepository(db).update_country(id, country)
     return JSONResponse(
         content={        
-        "message": "The country was successfully updated",        
-        "data": jsonable_encoder(update_country)    
+            "message": "The country was successfully updated",        
+            "data": jsonable_encoder(updated_country)    
         }, 
-        status_code=status.HTTP_201_CREATED
+        status_code=201
     )
 
 
 @country_router.delete('/{id}',
     tags=['country'],
     response_model=dict,
-    description="Removes specific country")
+    description="Removes a specific country")
 def remove_country(id: int = Path(ge=1)) -> dict:
     db = SessionLocal()
     element = CountryRepository(db).get_country(id)
