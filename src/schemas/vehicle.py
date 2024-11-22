@@ -2,7 +2,6 @@ from pydantic import BaseModel, Field, EmailStr
 from typing import Optional
 
 class Vehicle(BaseModel):
-    id: int = Field(title="Numero de identificacion del vehiculo", example=1)
     name: str = Field(min_length=2, title="Nombre del vehiculo", max_length=50, example="Ferrari F40")
     marca_id: int = Field(title="Marca del vehiculo", example= 1 )
     modelo: int = Field(title="Modelo del vehiculo",example=2004)
