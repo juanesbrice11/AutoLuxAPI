@@ -4,7 +4,7 @@ from src.config.database import Base
 
 class Comment(Base):
     __tablename__ = "comment"
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     date = Column(String(50), nullable=False)
     user_id = Column(String(64), ForeignKey("user.id"), nullable=False)
     content = Column(String(50), nullable=False)
