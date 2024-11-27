@@ -8,5 +8,3 @@ class Comment(BaseModel):
     vehicle_id: int = Field(title="Numero de identificacion del vehiculo", example=1)
     likes: Optional[int] = Field(title="Numero de likes del comentario", default=0, example=122)
     dislikes: Optional[int] = Field(title="Numero de dislikes del comentario", default=0, example=122)
-    
-
