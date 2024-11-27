@@ -60,10 +60,10 @@ app = FastAPI(openapi_tags=tags_metadata, root_path=f"/api/v1")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], 
+    allow_origins=["http://localhost:3000", "http://autolux.lat"],
     allow_credentials=True,
-    allow_methods=["*"], 
-    allow_headers=["*"],  
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(prefix="/brand", router=Brand_router)
