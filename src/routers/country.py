@@ -9,17 +9,6 @@ from fastapi.encoders import jsonable_encoder
 
 country_router = APIRouter()
 
-@country_router.options("/")
-async def options_country():
-    return JSONResponse(
-        content={},
-        headers={
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        },
-    )
-
 @country_router.get('/',
     tags=['country'],
     response_model=List[Country],
