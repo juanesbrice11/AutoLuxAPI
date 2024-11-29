@@ -9,7 +9,7 @@ from fastapi.encoders import jsonable_encoder
 
 country_router = APIRouter()
 
-@country_router.options("/country/")
+@country_router.options("/")
 async def options_country():
     return JSONResponse(
         content={},
