@@ -60,7 +60,7 @@ app = FastAPI(openapi_tags=tags_metadata, root_path=f"/api/v1")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://autolux.lat"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
