@@ -41,7 +41,7 @@ def update_user(credentials: Annotated[HTTPAuthorizationCredentials,
     token = credentials.credentials
     payload = auth_handler.decode_token(token)
     if payload:
-        user_id = payload.get("user.id")
+        user_id = payload.get("user_id")
         result = UserRepository(db).edit_user(user_id, user)
         return JSONResponse(
             content={        
@@ -59,7 +59,7 @@ def delete_user(credentials: Annotated[HTTPAuthorizationCredentials,
     token = credentials.credentials
     payload = auth_handler.decode_token(token)
     if payload:
-        user_id = payload.get("user.id")
+        user_id = payload.get("user_id")
         result = UserRepository(db).delete_user(user_id)
         return JSONResponse(
             content={        
