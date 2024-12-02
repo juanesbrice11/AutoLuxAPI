@@ -33,8 +33,8 @@ class JWTHandler:
             "sub": user.email,
             # Custom Issues
             "scope": "access_token",
-            "user.name": user.name,
-            "user.id": user.id,
+            "user_name": user.name,
+            "user_id": user.id,
         }
         return jwt.encode(payload, self.secret, algorithm=self.algorithm)
 
